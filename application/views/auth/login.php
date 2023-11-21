@@ -22,7 +22,7 @@
     }
 
     a {
-      color: #00ce68!important;
+      color: #00ce68 !important;
     }
 
     .login-step-wrapper .login-form-wrapper .login-form .login-form-button {
@@ -30,8 +30,9 @@
       border: none !important;
       color: white !important;
     }
-    .bgdc{
-      background-color:  #00ce68;
+
+    .bgdc {
+      background-color: #00ce68;
     }
   </style>
   <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style-login.css">
@@ -77,41 +78,41 @@
             <!-- Button trigger modal -->
           </form>
 
-              <!-- Modal -->
-              <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="staticBackdropLabel">Cek ID Kantor</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <form action="<?php echo base_url('auth/register') ?>" method="POST">
-                        <input type="hidden" name="id_kantor" id="id_kantor" value="">
-                          <div class="modal-body">
-                              <div class="row">
-                                <div class="col-12">
-                                  <div class="mb-2">
-                                    <label for="" class="text-start">Masukkan ID Kantor Anda</label>
-                                    <div class="input-group mb-3">
-                                      <input type="text" class="form-control" id="id" placeholder="" aria-label="Example text with button addon" aria-describedby="cek-btn">
-                                      <button class="btn bgdc text-white" type="button" id="cek-btn">CEK</button>
-                                    </div>
-                                  </div>
-                                  <div class="mb-2" id="keterangan">
-                                    
-                                  </div>
-                                  <div class="col-12">
-                                    <div class="d-grid gap-2">
-                                      <button class="btn bgdc disabled text-white" id="btn-next" type="submit">Lanjutkan</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+          <!-- Modal -->
+          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="staticBackdropLabel">Cek ID Kantor</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="<?php echo base_url('auth/register') ?>" method="POST">
+                  <input type="hidden" name="id_kantor" id="id_kantor" value="">
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="mb-2">
+                          <label for="" class="text-start">Masukkan ID Kantor Anda</label>
+                          <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="id" placeholder="" aria-label="Example text with button addon" aria-describedby="cek-btn">
+                            <button class="btn bgdc text-white" type="button" id="cek-btn">CEK</button>
                           </div>
-                        </form>
+                        </div>
+                        <div class="mb-2" id="keterangan">
+
+                        </div>
+                        <div class="col-12">
+                          <div class="d-grid gap-2">
+                            <button class="btn bgdc disabled text-white" id="btn-next" type="submit">Lanjutkan</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
+                </form>
+              </div>
+            </div>
+          </div>
 
 
         </div>
@@ -125,57 +126,51 @@
   </main>
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-combine.js"></script>
   <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/responsive-login.js"></script>
-<<<<<<< HEAD
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script>
-    $(document).ready(function(){
-      $("#cek-btn").click(function(){
-        let id =$("#id").val();
+    $(document).ready(function() {
+      $("#cek-btn").click(function() {
+        let id = $("#id").val();
         $("#id_kantor").val(id);
 
 
         $.ajax({
-                url: '<?php echo base_url('api/Kantor/cek_kantor/') ?>'+id,
-                type: 'get',
-                success: function(response) {
-                        var no = 1;
-                        var html = '';
-                       
-                        console.log(response);
-                        if(response.data==null){
-                          $("#btn-next").addClass("disabled");
-                          $("#ada").remove();
-                          $("#tidak-ada").remove();
-                          html=`
+          url: '<?php echo base_url('api/Kantor/cek_kantor/') ?>' + id,
+          type: 'get',
+          success: function(response) {
+            var no = 1;
+            var html = '';
+
+            console.log(response);
+            if (response.data == null) {
+              $("#btn-next").addClass("disabled");
+              $("#ada").remove();
+              $("#tidak-ada").remove();
+              html = `
                               <p class="text-left text-danger" id="tidak-ada">Kantor tidak ditemukan!</p>
                               `;
-                          $("#keterangan").append(html);
+              $("#keterangan").append(html);
 
-                        }else{
-                          $("#btn-next").removeClass("disabled");
-                          $("#ada").remove();
-                          $("#tidak-ada").remove();
-                          html=`
+            } else {
+              $("#btn-next").removeClass("disabled");
+              $("#ada").remove();
+              $("#tidak-ada").remove();
+              html = `
                               <p class="text-left text-success" id="ada">Daftar Ke Kantor ${response.data['nama_kantor']} ?</p>
                               `;
-                          $("#keterangan").append(html);
-                        }
-        
-                    }
-                });
+              $("#keterangan").append(html);
+            }
+
+          }
+        });
 
         // end ajax
 
       });
     });
-</script>
+  </script>
 
 
 </body>
-=======
-</body>
-
-</html>
->>>>>>> 08c9475877b049b0f250f66d4eeaf9a8deb6ae05
