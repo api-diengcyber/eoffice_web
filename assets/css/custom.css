@@ -1,0 +1,21 @@
+.mlist {
+    list-style: none!important;
+    padding-left: 0px;
+}
+.mlist > li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom:  dotted 1px silver;
+}
+.mlist > li:last-child {
+    border-bottom: 0px;
+}
+.capitalize {
+    text-transform: capitalize!important;
+}
+.table-bordered {
+    border: 1px solid #b6b6b6;
+}
+.table-bordered th, .table-bordered td {
+    border: 1px solid #b6b6b6;
+}
