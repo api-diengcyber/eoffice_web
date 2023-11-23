@@ -56,6 +56,7 @@ class Status_kerja_model extends CI_Model
         $date_start = null;
         $date_end = null;
         $array_days = [];
+        $last_status = "0";
         foreach ($res as $row) :
             if ($row->status == "1") {
                 $start_hitung = true;
@@ -83,11 +84,30 @@ class Status_kerja_model extends CI_Model
                     $start_hitung = false;
                 }
             }
+            $last_status = $row->status;
         endforeach;
 
+        $is_active = $last_status == "1";
+
+        $running_total = "0";
+        if ($is_active && !empty($date_start)) {
+            $date_end = new \DateTime(date('Y-m-d H:i:s'));
+            $interval  = $date_end->diff($date_start);
+            $jam_kerja = $interval->format('%h');
+            $menit_kerja = $interval->format('%i');
+            $dec_jam_kerja = (100 / 60) * $menit_kerja * 1;
+            $running_total = $jam_kerja;
+            if ($dec_jam_kerja > 0) {
+                $running_total .= "." . round($dec_jam_kerja);
+            }
+        }
+
         return (object) [
+            'is_active' => $is_active,
             'total' => $total_jam_kerja,
             'average' => count($array_days) > 0 ? round($total_jam_kerja / count($array_days), 2) : 0,
+            'start_jam_kerja_aktif' => !empty($date_start) ? $date_start->format('Y-m-d H:i:s') : "",
+            'running_total' => $running_total + $total_jam_kerja,
             'data' => $data,
         ];
     }

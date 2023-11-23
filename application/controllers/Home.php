@@ -41,8 +41,6 @@ class Home extends CI_Controller
 			$this->pegawai();
 			//echo "Tidak Ada Halaman Level";
 		}
-
-		
 	}
 
 	public function admin()
@@ -51,17 +49,17 @@ class Home extends CI_Controller
 		$data_login = $this->Tampilan_model->cek_login();
 		$user_id = $this->session->userdata('user_id');
 		$kantor_id = $this->db->select('id_kantor')
-					->from('users')
-					->where('id',$user_id)
-					->get()
-					->row();
+			->from('users')
+			->where('id', $user_id)
+			->get()
+			->row();
 
 		$namaKantor = $this->db->select('*')
-					->from('kantor')
-					->where('id',$kantor_id->id_kantor)
-					->get()
-					->row();
-		
+			->from('kantor')
+			->where('id', $kantor_id->id_kantor)
+			->get()
+			->row();
+
 		// var_dump($user_id,$namaKantor);
 		$this->Tampilan_model->admin();
 		$bulan = date('m');
@@ -71,8 +69,8 @@ class Home extends CI_Controller
 		$jumlah_pegawai = $this->db->select('u.*')
 			->from('users AS u')
 			->join('users_groups AS g', 'g.user_id = u.id')
-			->where('u.id_kantor=',$kantor_id->id_kantor )
-			->where('g.group_id!=',1 )
+			->where('u.id_kantor=', $kantor_id->id_kantor)
+			->where('g.group_id!=', 1)
 			->get()->num_rows();
 		// $jumlah_pegawai = $this->db->select('j.*, RIGHT(j.tgl,2) AS hari, p.asal, u.phone, p.nama_pegawai')
 		// 	->from('jam_kerja AS j')
@@ -85,12 +83,12 @@ class Home extends CI_Controller
 		// 	->order_by('p.nama_pegawai', 'ASC')
 		// 	->get()->num_rows();
 
-			
-	
+
+
 		$jumlah_masuk = $this->db->select('j.*')
 			->from('jam_kerja j')
-			->join('users as u','j.id_users=u.id')
-			->where('u.id_kantor=',$kantor_id->id_kantor )
+			->join('users as u', 'j.id_users=u.id')
+			->where('u.id_kantor=', $kantor_id->id_kantor)
 			->where('tgl', date('d-m-Y'))
 			->where('(status = 1 OR status = 2)')
 			->where('tgl', date('d-m-Y'))
@@ -100,31 +98,31 @@ class Home extends CI_Controller
 
 		$jumlah_izin = $this->db->select('*')
 			->from('tidak_masuk')
-			->join('users as u','tidak_masuk.id_users=u.id')
-			->where('u.id_kantor=',$kantor_id->id_kantor )
+			->join('users as u', 'tidak_masuk.id_users=u.id')
+			->where('u.id_kantor=', $kantor_id->id_kantor)
 			->where('tidak_masuk!=4')
 			->where('tgl', date('Y-m-d'))
 			->get()->num_rows();
 
 		$jumlah_wfh = $this->db->select('*')
 			->from('tidak_masuk')
-			->join('users as u','tidak_masuk.id_users=u.id')
-			->where('u.id_kantor=',$kantor_id->id_kantor )
+			->join('users as u', 'tidak_masuk.id_users=u.id')
+			->where('u.id_kantor=', $kantor_id->id_kantor)
 			->where('tidak_masuk=4')
 			->where('tgl', date('Y-m-d'))
 			->get()->num_rows();
-		
-		
-		$jumlah_tugas_pending = 
-		
-				$this->db->select('t.*')
-				->from('tugas as t')
-				->join('pegawai as p','p.id=t.id_pegawai')
-				->join('users as u','u.id=p.id_users')
-				->where('u.id_kantor=',$kantor_id->id_kantor )
-				->where('t.selesai', 0)
-				->get()
-				->num_rows();
+
+
+		$jumlah_tugas_pending =
+
+			$this->db->select('t.*')
+			->from('tugas as t')
+			->join('pegawai as p', 'p.id=t.id_pegawai')
+			->join('users as u', 'u.id=p.id_users')
+			->where('u.id_kantor=', $kantor_id->id_kantor)
+			->where('t.selesai', 0)
+			->get()
+			->num_rows();
 
 
 		$data = [
@@ -167,16 +165,16 @@ class Home extends CI_Controller
 		$pegawai = $this->Pegawai_model->get_by_id($data_login['users_id_pegawai']);
 
 		$user = $this->db->select('*')
-					->from('users')
-					->where('id', $pegawai->id_users)
-					->get()
-					->row();
+			->from('users')
+			->where('id', $pegawai->id_users)
+			->get()
+			->row();
 		$kantor = $this->db->select('*')
-					->from('kantor')
-					->where('id', $user->id_kantor)
-					->get()
-					->row();
-			 $namaKantor = $kantor->nama_kantor;
+			->from('kantor')
+			->where('id', $user->id_kantor)
+			->get()
+			->row();
+		$namaKantor = $kantor->nama_kantor;
 
 		$data = array(
 			'tingkat' 			=> $row->tingkat,
@@ -207,6 +205,7 @@ class Home extends CI_Controller
 		);
 		$this->Tampilan_model->layar('home', $data, $this->active);
 	}
+
 	public function training()
 	{
 		$data_login = $this->Tampilan_model->cek_login();
@@ -225,6 +224,7 @@ class Home extends CI_Controller
 		);
 		$this->Tampilan_model->layar('home', $data, $this->active);
 	}
+
 	public function manager()
 	{
 		$this->load->model('Absen_model');

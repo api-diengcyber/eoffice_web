@@ -635,7 +635,7 @@ class Absen extends CI_Controller
 
     public function info()
     {
-        
+
 
 
         $this->api->head();
@@ -687,27 +687,27 @@ class Absen extends CI_Controller
     {
         $this->api->head();
 
-        
+
         $this->form_validation->set_rules('id_user', 'ID User', 'trim|required');
         $this->form_validation->set_rules('id_pegawai', 'ID Pegawai', 'trim|required');
-        
+
         if ($this->form_validation->run() !== TRUE) {
             $this->api->result("error", [], "");
             return;
         }
-        
+
         $id_user = $this->input->post('id_user', true);
         $id_pegawai = $this->input->post('id_pegawai');
         $row = $this->db->where('id', $id_user)->get('users')->row();
         $row_pegawai = $this->db->where('id', $id_pegawai)->get('pegawai')->row();
-        $this->kantors_id = $row->id_kantor; 
+        $this->kantors_id = $row->id_kantor;
 
 
         $kt = $this->db->select("lat,long")
-        ->from("kantor_lokasi")
-        ->where("id_kantor", $row->id_kantor)
-        ->get()
-        ->row();
+            ->from("kantor_lokasi")
+            ->where("id_kantor", $row->id_kantor)
+            ->get()
+            ->row();
 
         // $certificate = 1;
         // $certificate_url = 'https://www.diengcyber.com';
@@ -775,17 +775,17 @@ class Absen extends CI_Controller
         $this->load->model('Status_kerja_model');
 
         $row_total_active = $this->Status_kerja_model->get_total_active_by_tgl($id_user, date('d-m-Y'));
-        $total_jam_wfh = $row_total_active->total;
-
-
+        $total_jam_wfh = $row_total_active->is_active ? $row_total_active->running_total : $row_total_active->total;
+        $jam_aktif = $row_total_active->start_jam_kerja_aktif;
 
         if ($row) {
-           
-            
             // $latCek = -7.358130895877216;
             // $longCek = 109.90312842967987;
             $data = [
-                'greeting' => $greeting . ', ' . $row->username . "\nStatus wfh anda hari ini: " . $total_jam_wfh . ' jam',
+                'greeting' => $greeting . ", \n" . $row->username,
+                'is_monitor' => $row_pegawai->monitor == "1",
+                'text_status_wfh' => 'Status kerja: ' . ($row_total_active->is_active ? "Aktif" : "Tidak aktif") . ' ' . (!empty($jam_aktif) ? "(" . $jam_aktif . ")" : ""),
+                'text_total_jam_kerja' => 'Total jam kerja hari ini: ' . $total_jam_wfh . ' jam',
                 'str_time' => $this->tanggal_indo(date('Y-m-d'), true),
                 'str_date_ymd' => date('Y-m-d'),
                 'tugas_pagi' => $tugas_pagi > 0 ? 1 : 0,
@@ -803,8 +803,8 @@ class Absen extends CI_Controller
                 // 'certificate' => $certificate,
                 // 'certificate_url' => $certificate_url,
                 // 'penilaian' => $penilaian,
-                'office_latitude' => $kt->lat,
-                'office_longitude' => $kt->long,
+                'office_latitude' => (float) $kt->lat,
+                'office_longitude' => (float) $kt->long,
 
                 'office_max_distance' => 100,
             ];

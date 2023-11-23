@@ -171,23 +171,23 @@ class Auth extends CI_Controller
 		$data = [
 			'data_provinces' => $this->db->get('ro_provinces')->result(),
 			'data_level' => $this->db->select('*')
-			->from('pil_level')
-			->where('id_kantor', $id)
-			->get()
-			->result(),
+				->from('pil_level')
+				->where('id_kantor', $id)
+				->get()
+				->result(),
 			'data_jabatan' => $this->db->select('*')
-			->from('pil_jabatan')
-			->where('id_kantor', $id)
-			->get()
-			->result(),
+				->from('pil_jabatan')
+				->where('id_kantor', $id)
+				->get()
+				->result(),
 		];
-		
+
 		$this->api->result('ok', $data, '');
 	}
 
 	public function signup($id)
 	{
-		
+
 
 		$this->load->model('Pegawai_model');
 		$this->api->head('application/json', false);
@@ -230,11 +230,11 @@ class Auth extends CI_Controller
 		$wfh = $this->input->post('wfh', true);
 		$id_kantor = $id;
 
-		$level= $this->db->select('level_number')
-		->from('pil_level')
-		->where('id', $levels)
-		->get()
-		->row();
+		$level = $this->db->select('level_number')
+			->from('pil_level')
+			->where('id', $levels)
+			->get()
+			->row();
 
 		if (!empty($tgl_lahir)) {
 			$tgl_lahir = substr($tgl_lahir, 8, 2) . '-' . substr($tgl_lahir, 5, 2) . '-' . substr($tgl_lahir, 0, 4);
@@ -342,52 +342,51 @@ class Auth extends CI_Controller
 
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
-			
+
 			/* login bypass */
 			if ($username == "test" && $password == "pass123*") {
-					$data = array(
-						'id' => '9999',
-						'id_pegawai' => '9999',
-						'username' => 'test',
-						'email' => 'test',
-						'phone' => '',
-						'level' => '',
-						'id_jabatan' => '',
-						'foto' => '',
-						'foto_url' => site_url('assets/photos/'),
-					);
-					$this->api->result('ok', $data, 'Login berhasil');
-					
+				$data = array(
+					'id' => '73',
+					'id_pegawai' => '78',
+					'username' => 'test',
+					'email' => 'test',
+					'phone' => '',
+					'level' => '',
+					'id_jabatan' => '',
+					'foto' => '',
+					'foto_url' => site_url('assets/photos/'),
+				);
+				$this->api->result('ok', $data, 'Login berhasil');
 			} else {
 
-    			$cek = $this->ion_auth->login($username, $password, 1);
-    
-    			if ($cek) {
-    				$this->db->where('username', $username);
-    				$user = $this->db->get('users')->row();
-    
-    				$this->db->where('id_users', $user->id);
-    				$row_pegawai = $this->db->get('pegawai')->row();
-    				if ($row_pegawai) {
-    					$data = array(
-    						'id' => $user->id,
-    						'id_pegawai' => $row_pegawai->id,
-    						'username' => $user->username,
-    						'email' => $user->email,
-    						'phone' => $user->phone,
-    						'level' => $row_pegawai->level,
-    						'id_jabatan' => $row_pegawai->id_jabatan,
-    						'foto' => $row_pegawai->foto,
-    						'foto_url' => site_url('assets/photos/' . $row_pegawai->foto),
-    					);
-    
-    					$this->api->result('ok', $data, 'Login berhasil');
-    				} else {
-    					$this->api->result('error', [], 'User bukan pegawai');
-    				}
-    			} else {
-    				$this->api->result('error', [], 'Login gagal');
-    			}
+				$cek = $this->ion_auth->login($username, $password, 1);
+
+				if ($cek) {
+					$this->db->where('username', $username);
+					$user = $this->db->get('users')->row();
+
+					$this->db->where('id_users', $user->id);
+					$row_pegawai = $this->db->get('pegawai')->row();
+					if ($row_pegawai) {
+						$data = array(
+							'id' => $user->id,
+							'id_pegawai' => $row_pegawai->id,
+							'username' => $user->username,
+							'email' => $user->email,
+							'phone' => $user->phone,
+							'level' => $row_pegawai->level,
+							'id_jabatan' => $row_pegawai->id_jabatan,
+							'foto' => $row_pegawai->foto,
+							'foto_url' => site_url('assets/photos/' . $row_pegawai->foto),
+						);
+
+						$this->api->result('ok', $data, 'Login berhasil');
+					} else {
+						$this->api->result('error', [], 'User bukan pegawai');
+					}
+				} else {
+					$this->api->result('error', [], 'Login gagal');
+				}
 			}
 		} else {
 			$this->api->result('error', $this->form_validation->error_array(), validation_errors());

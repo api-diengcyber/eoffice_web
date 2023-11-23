@@ -75,6 +75,7 @@
       background: -webkit-linear-gradient(30deg, #897b14, #000000);
       background: -o-linear-gradient(30deg, #897b14, #000000);
       background: linear-gradient(120deg, #897b14, #000000);
+      linear-gradient(120deg, #897b14, #000000)
     }
   </style>
 </head>
