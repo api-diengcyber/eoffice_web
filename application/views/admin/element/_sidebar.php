@@ -7,23 +7,23 @@
 </style>
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
-    <li class="nav-item <?php 
-                            if (!empty($active_utilities) && $active_utilities == 'active_home') {
-                                echo 'active';
-                              } 
-                            
-                              ?>">
+    <li class="nav-item <?php
+                        if (!empty($active_utilities) && $active_utilities == 'active_home') {
+                          echo 'active';
+                        }
+
+                        ?>">
       <a class="nav-link" href="<?php echo base_url() ?>">
         <i class="menu-icon mdi mdi-television"></i>
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
-    <li class="nav-item <?php 
-                            if (!empty($active_utilities) && $active_utilities == 'active_project') {
-                                echo 'active';
-                              } 
-                            
-                              ?>">
+    <li class="nav-item <?php
+                        if (!empty($active_utilities) && $active_utilities == 'active_project') {
+                          echo 'active';
+                        }
+
+                        ?>">
       <a class="nav-link" data-toggle="collapse" href="#project" aria-expanded="false" aria-controls="ui-basic">
         <i class="menu-icon mdi mdi-airplay"></i>
         <span class="menu-title">Projects</span>
@@ -32,13 +32,11 @@
       <div class="collapse 
                               <?php if (!empty($active_utilities) && $active_utilities == 'active_project') {
                                 echo 'show';
-                              }elseif(!empty($active_task) && $active_task == 'active_task') {
+                              } elseif (!empty($active_task) && $active_task == 'active_task') {
                                 echo 'show';
-                              }elseif(!empty($active_utilities) && $active_utilities == 'active_tugas') {
+                              } elseif (!empty($active_utilities) && $active_utilities == 'active_tugas') {
                                 echo 'show';
-                              }else{
-
-                              } ?>
+                              } else { } ?>
       " id="project">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'active_project') {
@@ -46,7 +44,7 @@
                               } ?>">
             <a class="nav-link" href="<?php echo base_url() ?>admin/project">
               <i class="menu-icon mdi mdi-briefcase-check"></i>
-              Project 
+              Project
             </a>
           </li>
           <li class="nav-item <?php if (!empty($active_project_board) && $active_project_board == 'active_project') {
@@ -59,8 +57,8 @@
           </li>
           <li class="nav-item <?php if (!empty($active_task) && $active_task == 'active_task') {
                                 echo 'active';
-                              } ?>" >
-                             
+                              } ?>">
+
             <a class="nav-link" href="<?php echo base_url() ?>admin/tasks">
               <i class="menu-icon mdi mdi-calendar-check"></i>
               <span class="menu-title">Tugas Project Board </span>
@@ -178,8 +176,8 @@
     </li>
 
     <li class="nav-item  <?php if (!empty($active_utilities) && $active_utilities == 'active_kantor') {
-                                echo 'active';
-                              } ?>
+                            echo 'active';
+                          } ?>
                               <?php if (!empty($active_utilities) && $active_utilities == 'active_pegawai') {
                                 echo 'active';
                               } ?>
@@ -201,8 +199,8 @@
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse <?php if (!empty($active_utilities) && $active_utilities == 'active_kantor') {
-                                echo 'show';
-                              } ?>
+                              echo 'show';
+                            } ?>
                               <?php if (!empty($active_utilities) && $active_utilities == 'active_pegawai') {
                                 echo 'show';
                               } ?>
@@ -273,16 +271,16 @@
       </div>
     </li>
     <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'active_presensi') {
-                                echo 'active';
-                              } ?>">
+                          echo 'active';
+                        } ?>">
       <a class="nav-link" data-toggle="collapse" href="#upgrade" aria-expanded="false" aria-controls="upgrade">
         <i class="menu-icon mdi mdi-package-up"></i>
         <span class="menu-title">Perbarui data absen</span>
         <i class="menu-arrow"></i>
       </a>
       <div class="collapse <?php if (!empty($active_utilities) && $active_utilities == 'active_presensi') {
-                                echo 'show';
-                              } ?>" id="upgrade">
+                              echo 'show';
+                            } ?>" id="upgrade">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'active_presensi') {
                                 echo 'active';
@@ -295,48 +293,54 @@
         </ul>
       </div>
     </li>
-    <li class="nav-item <?php if  (!empty($active_utilities) && $active_utilities == 'active_kisar') {
-                                echo 'active';
-                              } ?>">
+    <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'active_kisar') {
+                          echo 'active';
+                        } ?>">
       <a class="nav-link" href="<?php echo base_url() ?>admin/kritik_saran">
         <i class="menu-icon mdi mdi-package-down"></i>
         <span class="menu-title">Kritik & Saran</span>
       </a>
     </li>
     <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#inputdata" aria-expanded="false" aria-controls="ui-basic">
-              <i class="menu-icon mdi mdi-airplay"></i>
-              <span class="menu-title">Input data</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse <?php if (!empty($active_utilities) && $active_utilities == 'daily_sales_report_active') { echo 'show'; } ?>" id="inputdata">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'daily_sales_report_active') { echo 'active'; } ?>">
-                    <a class="nav-link" href="<?php echo base_url() ?>admin/daily_sales_report">
-                        <i class="menu-icon mdi mdi-briefcase-check"></i>
-                        Daily Sales Report
-                    </a>
-                </li>
-                <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'active_spk_report') { echo 'active'; } ?>">
-                    <a class="nav-link" href="<?php echo base_url() ?>admin/spk_report">
-                        <i class="menu-icon mdi mdi-clipboard-check"></i>
-                        SPK Report
-                    </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-    <li class="nav-item <?php if  (!empty($active_utilities) && $active_utilities == 'active_materi') {
+      <a class="nav-link" data-toggle="collapse" href="#inputdata" aria-expanded="false" aria-controls="ui-basic">
+        <i class="menu-icon mdi mdi-airplay"></i>
+        <span class="menu-title">Input data</span>
+        <i class="menu-arrow"></i>
+      </a>
+      <div class="collapse <?php if (!empty($active_utilities) && $active_utilities == 'daily_sales_report_active') {
+                              echo 'show';
+                            } ?>" id="inputdata">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'daily_sales_report_active') {
                                 echo 'active';
                               } ?>">
+            <a class="nav-link" href="<?php echo base_url() ?>admin/daily_sales_report">
+              <i class="menu-icon mdi mdi-briefcase-check"></i>
+              Daily Sales Report
+            </a>
+          </li>
+          <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'active_spk_report') {
+                                echo 'active';
+                              } ?>">
+            <a class="nav-link" href="<?php echo base_url() ?>admin/spk_report">
+              <i class="menu-icon mdi mdi-clipboard-check"></i>
+              SPK Report
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'active_materi') {
+                          echo 'active';
+                        } ?>">
       <a class="nav-link" href="<?php echo base_url() ?>admin/materi">
         <i class="menu-icon mdi mdi-clipboard-text"></i>
         <span class="menu-title">Materi</span>
       </a>
     </li>
-    <li class="nav-item <?php if  (!empty($active_utilities) && $active_utilities == 'active_info') {
-                                echo 'active';
-                              } ?>">
+    <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'active_info') {
+                          echo 'active';
+                        } ?>">
       <a class="nav-link" href="<?php echo base_url() ?>admin/info">
         <i class="menu-icon mdi mdi-information"></i>
         <span class="menu-title">Info</span>

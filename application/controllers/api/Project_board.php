@@ -21,8 +21,6 @@ class Project_board extends CI_Controller
         $token = md5(md5(md5("TANGANANGIE" . date("Y-m-d H:i"))));
         $_token = $this->input->post('token');
         if ($_token == $token) {
-
-
             $data = array(
                 "task" => $this->input->post('judul'),
                 "description" => $this->input->post('deskripsi'),

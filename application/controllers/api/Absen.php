@@ -635,11 +635,13 @@ class Absen extends CI_Controller
 
     public function info()
     {
-
-
-
         $this->api->head();
-        $row = $this->db->where("id_kantor", 1)->get("info")->row();
+
+        $id_user = $this->input->post('id_user');
+
+        $row_user = $this->db->where('id', $id_user)->get('users')->row();
+
+        $row = $this->db->where("id_kantor", $row_user->id_kantor)->get("info")->row();
         if ($row) {
             $this->api->result("ok", $row, "");
         } else {
@@ -729,7 +731,7 @@ class Absen extends CI_Controller
         }
 
         $info_false_gps = "";
-        $row_inf = $this->db->where("tujuan", 0)->get("info")->row();
+        $row_inf = $this->db->where("tujuan", 0)->where('id_kantor', $row->id_kantor)->get("info")->row();
         if ($row_inf) {
             $info_false_gps = $row_inf->info;
         }
