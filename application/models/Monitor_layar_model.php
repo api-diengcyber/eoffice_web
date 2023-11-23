@@ -194,14 +194,15 @@ class Monitor_layar_model extends CI_Model
     // datatables
     function json($tgl = NULL)
     {
+        $this->load->model('Status_kerja_model');
         $user_id = $this->session->userdata('user_id');
         $kantor_id = $this->db->select('id_kantor')
-                ->from('users')
-                ->where('id',$user_id)
-                ->get()
-                ->row();
+            ->from('users')
+            ->where('id', $user_id)
+            ->get()
+            ->row();
 
-        $this->datatables->select('p.id, p.id_users, p.nama_pegawai, p.tgl_masuk, p.rekening, p.level, p.gaji_pokok, l.level AS nm_level, t.tingkat, pj.jabatan, p.wfh, p.hybrid, u.id AS id_user');
+        $this->datatables->select('p.id, p.id_users, p.nama_pegawai, p.tgl_masuk, p.rekening, p.level, p.gaji_pokok, l.level AS nm_level, t.tingkat, pj.jabatan, p.wfh, p.hybrid, u.id AS id_user, GROUP_CONCAT(CONCAT(sk.id,"|",sk.created_on,"|",sk.status) SEPARATOR "#") AS sk_group');
         $this->datatables->from('pegawai AS p');
         $this->datatables->join('pil_level AS l', 'p.level = l.id', 'left');
         $this->datatables->join('pil_jabatan AS pj', 'p.id_jabatan = pj.id', 'left');
@@ -211,7 +212,13 @@ class Monitor_layar_model extends CI_Model
         $this->datatables->where('u.active', 1);
         $this->datatables->where('(u.fcm_token IS NOT NULL OR u.fcm_token != "")');
         $this->datatables->where('u.id_kantor', $kantor_id->id_kantor);
-        return $this->datatables->generate();
+        $this->datatables->group_by('p.id');
+        $decode = (object) json_decode($this->datatables->generate());
+        foreach ($decode->data as $index => $row) :
+            $data_total_jam = $this->Status_kerja_model->get_total_active_by_tgl($row->id_users, $tgl);
+            $decode->data[$index]->total_jam = $data_total_jam->total;
+        endforeach;
+        return json_encode($decode);
     }
 
     function get_user_by_id($id)
