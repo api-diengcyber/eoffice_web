@@ -15,10 +15,10 @@ class KPI_model extends CI_Model
     {
         $user_id = $this->session->userdata('user_id');
         $kantor_id = $this->db->select('id_kantor')
-                ->from('users')
-                ->where('id',$user_id)
-                ->get()
-                ->row();
+            ->from('users')
+            ->where('id', $user_id)
+            ->get()
+            ->row();
 
         $this->db->select('p.*, l.level AS nm_level, t.tingkat, pj.jabatan');
         $this->db->from('pegawai p');

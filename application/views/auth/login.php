@@ -10,8 +10,7 @@
   <script src="<?php echo base_url(); ?>assets/js/optimize.js"></script>
   <style type="text/css">
     body {
-      background-color: white !important;
-      color: black !important;
+      background-color: #fff !important;
     }
 
     .login-step-wrapper .login-form-wrapper .login-form .login-form-button {
@@ -22,11 +21,144 @@
     }
 
     a {
-      color: #00ce68 !important;
+      color: #ffee00 !important;
     }
 
     .login-step-wrapper .login-form-wrapper .login-form .login-form-button {
-      background-color: #00ce68 !important;
+      background-color: #ffee00 !important;
+      border: none !important;
+      color: #000000 !important;
+    }
+
+    .area {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #4e54c8;
+      background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+      width: 100%;
+      height: 100vh;
+
+    }
+
+    .circles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .circles li {
+      position: absolute;
+      display: block;
+      list-style: none;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      animation: animate 25s linear infinite;
+      bottom: -150px;
+
+    }
+
+    .circles li:nth-child(1) {
+      left: 25%;
+      width: 80px;
+      height: 80px;
+      animation-delay: 0s;
+    }
+
+
+    .circles li:nth-child(2) {
+      left: 10%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 2s;
+      animation-duration: 12s;
+    }
+
+    .circles li:nth-child(3) {
+      left: 70%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 4s;
+    }
+
+    .circles li:nth-child(4) {
+      left: 40%;
+      width: 60px;
+      height: 60px;
+      animation-delay: 0s;
+      animation-duration: 18s;
+    }
+
+    .circles li:nth-child(5) {
+      left: 65%;
+      width: 20px;
+      height: 20px;
+      animation-delay: 0s;
+    }
+
+    .circles li:nth-child(6) {
+      left: 75%;
+      width: 110px;
+      height: 110px;
+      animation-delay: 3s;
+    }
+
+    .circles li:nth-child(7) {
+      left: 35%;
+      width: 150px;
+      height: 150px;
+      animation-delay: 7s;
+    }
+
+    .circles li:nth-child(8) {
+      left: 50%;
+      width: 25px;
+      height: 25px;
+      animation-delay: 15s;
+      animation-duration: 45s;
+    }
+
+    .circles li:nth-child(9) {
+      left: 20%;
+      width: 15px;
+      height: 15px;
+      animation-delay: 2s;
+      animation-duration: 35s;
+    }
+
+    .circles li:nth-child(10) {
+      left: 85%;
+      width: 150px;
+      height: 150px;
+      animation-delay: 0s;
+      animation-duration: 11s;
+    }
+
+
+
+    @keyframes animate {
+
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+      }
+
+      100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+      }
+
+    }
+
+    .login-step-wrapper .login-form-wrapper .login-form .login-form-button {
       border: none !important;
       color: white !important;
     }
@@ -44,10 +176,26 @@
 </head>
 
 <body>
+
+  <div class="area">
+    <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+
   <main role="main" class="responsive-page">
     <header role="banner">
       <!-- <img src="<?php echo base_url('assets/images/img_logo.png') ?>" alt="" style="height:150px;margin-top:100px"> -->
-      <img src="https://office.diengcyber.com/assets/images/logo%20eoffice%20dieng%20cyber.png" alt="" style="height:100px;width:200px;margin-top:70px;margin-bottom:10px">
+      <img src="https://office.diengcyber.com/assets/images/logo%20eoffice%20dieng%20cyber.png" alt="" style="height:70px;margin-top:70px;margin-bottom:10px">
     </header>
     <div class="login-step-wrapper">
       <section id="login-step-login-form" class="login-step">
@@ -61,7 +209,7 @@
         <div class="login-form-wrapper">
           <form id="login-form" name="form" action="<?php echo base_url('auth/login'); ?>" class="login-form" method="post">
             <div class="error-message" style="display: none;">Oops something went wrong, please try again.</div>
-            <h3>LOGIN</h3>
+            <h3 style="color:#000;">LOGIN E-OFFICE S4I</h3>
             <input name="identity" placeholder="username" type="text" class="input-email login-field" autofocus="autofocus">
             <input name="password" placeholder="Password" type="password" class="input-password login-field">
             <button class="button large inline green login-form-button" type="submit" name="submit" value="submit">
@@ -77,10 +225,18 @@
             <!--  -->
             <!-- Button trigger modal -->
           </form>
+          <div style="display:flex;margin-top:30px;">
+            <div style="flex:1;">
+              <img src="<?php echo base_url('assets/images/s4i.png') ?>" style="height:70px;" />
+            </div>
+            <div style="flex:1;">
+              <img src="<?php echo base_url('assets/images/kemenperin.png') ?>" style="height:70px;" />
+            </div>
+          </div>
 
           <!-- Modal -->
           <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog" style="color:#000;">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="staticBackdropLabel">Cek ID Kantor</h5>
