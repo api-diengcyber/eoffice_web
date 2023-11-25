@@ -299,32 +299,46 @@ class Home extends CI_Controller
 
 	public function delete_account()
 	{
-		$this->load->library('form_validation');
+		$this->load->library(array('ion_auth', 'form_validation'));
 
-		$data_login = $this->Tampilan_model->cek_login();
-		$user_id = $this->session->userdata('user_id');
-		$kantor_id = $this->db->select('id_kantor')
-			->from('users')
-			->where('id', $user_id)
-			->get()
-			->row();
-
+		$this->form_validation->set_rules('email', 'Email', 'trim|required');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 		$this->form_validation->set_rules('alasan', 'Alasan', 'trim|required');
 
 		if ($this->form_validation->run() == true) {
-			$this->db->insert('request_delete', [
-				'id_kantor' => $kantor_id->id_kantor,
-				'id_user' => $user_id,
-				'alasan' => $this->input->post('alasan', true),
-				'status' => 1,
-				'waktu' => date('Y-m-d H:i:s'),
-			]);
-			redirect('deleteaccount', 'refresh');
+			$email = $this->input->post('email');
+			$password = $this->input->post('password');
+			$alasan = $this->input->post('alasan');
+
+			$data = [];
+
+			if ($this->ion_auth->login($email, $password, 0)) {
+				$row_pegawai = $this->db->where('id_users', $this->ion_auth->get_user_id())->get('pegawai')->row();
+				$kantor_id = $this->db->select('id_kantor')
+					->from('users')
+					->where('id', $row_pegawai->id_users)
+					->get()
+					->row();
+				$this->db->insert('request_delete', [
+					'id_kantor' => $kantor_id->id_kantor,
+					'id_user' => $row_pegawai->id_users,
+					'alasan' => $alasan,
+					'status' => 1,
+					'waktu' => date('Y-m-d H:i:s'),
+				]);
+				$data['login'] = true;
+				$data['data'] = $this->db->where('id_user', $row_pegawai->id_users)->get('request_delete')->row();
+				$this->ion_auth->logout();
+			} else {
+				$data['login'] = false;
+			}
+			$this->Tampilan_model->layar2('delete_account', $data, $this->active);
 		} else {
 			$data = [
 				'action' => site_url('deleteaccount'),
+				'email' => set_value('email'),
+				'password' => set_value('password'),
 				'alasan' => set_value('alasan'),
-				'data' => $this->db->where('id_user', $user_id)->get('request_delete')->row(),
 			];
 			$this->Tampilan_model->layar2('delete_account', $data, $this->active);
 		}

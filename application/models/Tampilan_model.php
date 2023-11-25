@@ -39,8 +39,7 @@ class Tampilan_model extends CI_Model
 
 	public function layar2($hal, $data = array())
 	{
-		$data_login = $this->cek_login();
-		$this->load->view('pegawai/element/_header', $data_login);
+		$this->load->view('pegawai/element/_header', []);
 		$this->load->view($hal, $data);
 		$this->load->view('pegawai/element/_footer');
 	}

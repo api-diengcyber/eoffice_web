@@ -67,6 +67,7 @@ class Auth extends CI_Controller
 
 					$this->session->set_userdata($array);
 					$this->session->set_flashdata('message', $this->ion_auth->messages());
+
 					redirect('/', 'refresh');
 				} else {
 					$this->session->set_flashdata('message', 'Login Gagal!');
@@ -195,22 +196,22 @@ class Auth extends CI_Controller
 		} else {
 			$id_kantor = $this->input->post('id_kantor');
 			$kantor = $this->db->select('*')
-					->from('kantor')
-					->where('id', $id_kantor)
-					->get()
-					->row();
-			 $namaKantor = $kantor->nama_kantor;
+				->from('kantor')
+				->where('id', $id_kantor)
+				->get()
+				->row();
+			$namaKantor = $kantor->nama_kantor;
 
-			 $jabatan = $this->db->select('*')
-						->from('pil_jabatan')
-						->where('id_kantor', $id_kantor)
-						->get()
-						->result();
-			 $level = $this->db->select('*')
-						->from('pil_level')
-						->where('id_kantor', $id_kantor)
-						->get()
-						->result();
+			$jabatan = $this->db->select('*')
+				->from('pil_jabatan')
+				->where('id_kantor', $id_kantor)
+				->get()
+				->result();
+			$level = $this->db->select('*')
+				->from('pil_level')
+				->where('id_kantor', $id_kantor)
+				->get()
+				->result();
 			$this->data = [
 				'nama_kantor' => $namaKantor,
 				'id_kantor' => $id_kantor,
@@ -236,7 +237,6 @@ class Auth extends CI_Controller
 			];
 
 			$this->_render_page('auth/register', $this->data);
-			
 		}
 	}
 
