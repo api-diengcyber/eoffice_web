@@ -296,6 +296,39 @@ class Home extends CI_Controller
 			->get()->result();
 		return count($res);
 	}
+
+	public function delete_account()
+	{
+		$this->load->library('form_validation');
+
+		$data_login = $this->Tampilan_model->cek_login();
+		$user_id = $this->session->userdata('user_id');
+		$kantor_id = $this->db->select('id_kantor')
+			->from('users')
+			->where('id', $user_id)
+			->get()
+			->row();
+
+		$this->form_validation->set_rules('alasan', 'Alasan', 'trim|required');
+
+		if ($this->form_validation->run() == true) {
+			$this->db->insert('request_delete', [
+				'id_kantor' => $kantor_id->id_kantor,
+				'id_user' => $user_id,
+				'alasan' => $this->input->post('alasan', true),
+				'status' => 1,
+				'waktu' => date('Y-m-d H:i:s'),
+			]);
+			redirect('deleteaccount', 'refresh');
+		} else {
+			$data = [
+				'action' => site_url('deleteaccount'),
+				'alasan' => set_value('alasan'),
+				'data' => $this->db->where('id_user', $user_id)->get('request_delete')->row(),
+			];
+			$this->Tampilan_model->layar2('delete_account', $data, $this->active);
+		}
+	}
 }
 
 /* End of file Home.php */

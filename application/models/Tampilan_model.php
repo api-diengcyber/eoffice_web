@@ -19,12 +19,9 @@ class Tampilan_model extends CI_Model
 
 	public function cek_login()
 	{
-		
+
 		$data = array();
 		if (!empty($this->session->userdata('users_id_office'))) {
-			
-			
-			
 			$data = array(
 				'users_id' => $this->session->userdata('users_id_office'),
 				'users_id_pegawai' => $this->session->userdata('users_id_pegawai_office'),
@@ -32,7 +29,6 @@ class Tampilan_model extends CI_Model
 				'users_username' => $this->session->userdata('users_username_office'),
 				'users_level' => $this->session->userdata('users_level_office'),
 				'users_id_kantor' => $this->session->userdata(),
-				
 			);
 		} else {
 			redirect(site_url('auth/login'));
@@ -41,30 +37,38 @@ class Tampilan_model extends CI_Model
 		// var_dump($data);
 	}
 
+	public function layar2($hal, $data = array())
+	{
+		$data_login = $this->cek_login();
+		$this->load->view('pegawai/element/_header', $data_login);
+		$this->load->view($hal, $data);
+		$this->load->view('pegawai/element/_footer');
+	}
+
 	public function layar($hal, $data = array(), $active = array())
 	{
 		$data_login = $this->cek_login();
 		$this->load->model('Laporan_model');
 		if (empty($this->session->userdata('users_id_office'))) {
-		    redirect(site_url('auth/login'));
-		    return;
+			redirect(site_url('auth/login'));
+			return;
 		}
 		if ($data_login['users_level'] == '0') { // ADMIN
 			$fview = $this->view_admin;
-// 		} else if ($data_login['users_level'] == '1') { // PEGAWAI
-// 			$fview = $this->view_pegawai;
-// 			// $data_login['gajian_pegawai'] = $this->Laporan_model->get_gajian_pegawai(date('m-Y'))['id_pegawai'][$data_login['users_id']];
+			// 		} else if ($data_login['users_level'] == '1') { // PEGAWAI
+			// 			$fview = $this->view_pegawai;
+			// 			// $data_login['gajian_pegawai'] = $this->Laporan_model->get_gajian_pegawai(date('m-Y'))['id_pegawai'][$data_login['users_id']];
 
-// 		} else if ($data_login['users_level'] == '2') { // MARKETING
-// 			$fview = $this->view_marketing;
-// 			// $data_login['gajian_pegawai'] = $this->Laporan_model->get_gajian_pegawai(date('m-Y'))['id_pegawai'][$data_login['users_id']];
-// 		} else if ($data_login['users_level'] == '5') {
-// 			$fview = $this->view_training;
-// 		} else if ($data_login['users_level'] == '6') {
-// 			$fview = $this->view_manager;
+			// 		} else if ($data_login['users_level'] == '2') { // MARKETING
+			// 			$fview = $this->view_marketing;
+			// 			// $data_login['gajian_pegawai'] = $this->Laporan_model->get_gajian_pegawai(date('m-Y'))['id_pegawai'][$data_login['users_id']];
+			// 		} else if ($data_login['users_level'] == '5') {
+			// 			$fview = $this->view_training;
+			// 		} else if ($data_login['users_level'] == '6') {
+			// 			$fview = $this->view_manager;
 		} else {
-            $fview = $this->view_pegawai;
-// 			redirect(site_url('auth/login'));
+			$fview = $this->view_pegawai;
+			// 			redirect(site_url('auth/login'));
 		}
 		$this->load->view($fview . 'element/_header', $data_login);
 		$this->load->view($fview . 'element/_sidebar', $active);
@@ -92,32 +96,32 @@ class Tampilan_model extends CI_Model
 
 	public function marketing()
 	{
-// 		$data_login = $this->cek_login();
-// 		if ($data_login['users_level'] == '2') { // MARKETING
-// 		} else {
-// 			redirect(site_url());
-// 		}
-        $this->pegawai();
+		// 		$data_login = $this->cek_login();
+		// 		if ($data_login['users_level'] == '2') { // MARKETING
+		// 		} else {
+		// 			redirect(site_url());
+		// 		}
+		$this->pegawai();
 	}
 
 	public function training()
 	{
-// 		$data_login = $this->cek_login();
-// 		if ($data_login['users_level'] == '5') { // TRAINING
-// 		} else {
-// 			redirect(site_url());
-// 		}
-        $this->pegawai();
+		// 		$data_login = $this->cek_login();
+		// 		if ($data_login['users_level'] == '5') { // TRAINING
+		// 		} else {
+		// 			redirect(site_url());
+		// 		}
+		$this->pegawai();
 	}
 
 	public function manager()
 	{
-// 		$data_login = $this->cek_login();
-// 		if ($data_login['users_level'] == '6') { // TRAINING
-// 		} else {
-// 			redirect(site_url());
-// 		}
-        $this->pegawai();
+		// 		$data_login = $this->cek_login();
+		// 		if ($data_login['users_level'] == '6') { // TRAINING
+		// 		} else {
+		// 			redirect(site_url());
+		// 		}
+		$this->pegawai();
 	}
 }
 

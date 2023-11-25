@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/logoeoffice.ico" />
-  <script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.base.js"></script> 
+  <script src="<?php echo base_url(); ?>assets/vendors/js/vendor.bundle.base.js"></script>
   <style>
     table.dataTable {
       border-collapse: collapse !important;
@@ -241,12 +241,10 @@
 
     .navbar.default-layout {
       font-family: "Poppins", sans-serif;
-      background: #00ce68 !important;
-
-      /* background: -webkit-linear-gradient(30deg, #897b14, #000000);
+      background: -webkit-linear-gradient(30deg, #897b14, #000000);
       background: -o-linear-gradient(30deg, #897b14, #000000);
       background: linear-gradient(120deg, #897b14, #000000);
-      linear-gradient(120deg, #897b14, #000000) */
+      linear-gradient(120deg, #897b14, #000000)
     }
   </style>
   <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
@@ -333,7 +331,7 @@
           <li class="nav-item dropdown d-none d-xl-inline-block">
             <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <span class="profile-text">Hello, <?php echo $users_username ?> !</span>
-              <img class="img-xs rounded-circle" src="<?php echo base_url(); ?>assets/images/logo-mini.png" alt="Profile image">
+              <img class="img-xs rounded-circle" src="<?php echo base_url(); ?>assets/images/logoeoffice.png" alt="Profile image">
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
               <a class="dropdown-item p-0">
@@ -351,6 +349,9 @@
               </a>
               <a href="<?php echo base_url() ?>admin/users/ganti_password" class="dropdown-item">
                 Change Password
+              </a>
+              <a href="<?php echo base_url() ?>deleteaccount" class="dropdown-item" style="color:red!important;">
+                Permohonan hapus akun
               </a>
               <a href="<?php echo base_url() ?>/auth/logout" class="dropdown-item">
                 Sign Out

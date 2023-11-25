@@ -6,7 +6,7 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>
-       
+
           <li class="nav-item <?php if (isset($active_project_board)) {
                                 echo 'active';
                               } ?>">
@@ -41,21 +41,19 @@
             </a>
           </li>
          -->
-          <li class="nav-item <?php if (isset($active_tugas) && $active_tugas =='harian') {
-            
-                                    echo 'active';
-        
-                            } ?>">
+          <li class="nav-item <?php if (isset($active_tugas) && $active_tugas == 'harian') {
+
+                                echo 'active';
+                              } ?>">
             <a class="nav-link" href="<?php echo base_url() ?>pegawai/tugas">
               <i class="menu-icon mdi mdi-clipboard-check"></i>
               <span class="menu-title">Kegiatan Harian </span>
             </a>
           </li>
-          <li class="nav-item <?php if (!empty($active_tugas) && $active_tugas !='harian') {
-            
-              echo 'active';
-          
-                              } ?>" >
+          <li class="nav-item <?php if (!empty($active_tugas) && $active_tugas != 'harian') {
+
+                                echo 'active';
+                              } ?>">
             <a class="nav-link" href="<?php echo base_url() ?>pegawai/tugas/laporan_harian">
               <i class="menu-icon mdi mdi-clipboard-check"></i>
               <span class="menu-title">Riwayat Kegiatan </span>
