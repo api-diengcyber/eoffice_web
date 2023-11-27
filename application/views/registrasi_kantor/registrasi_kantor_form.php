@@ -4,9 +4,13 @@
             <div class="row" style="margin-top:50px;">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
+                    <div class="text-center">
+                        <img src="<?php echo base_url(); ?>assets/images/logoe-office.png" alt="logo" style="object-fit:contain;" />
+                    </div>
+                    <p style="margin-top:12px;margin-left:12px;margin-right:12px;">Untuk pertanyaan hubungi <i class="fa fa-envelope-o"></i> support@eoffice.my.id atau <i class="fa fa-whatsapp"></i> +6285729670954</p>
                     <div class="card">
                         <div class="card-header">
-                            <h3>Permohonan Registrasi Kantor</h3>
+                            <h3>Permohonan Registrasi</h3>
                         </div>
                         <div class="card-body">
                             <form action="<?php echo $action; ?>" method="post">
