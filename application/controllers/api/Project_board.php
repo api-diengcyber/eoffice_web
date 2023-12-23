@@ -10,6 +10,8 @@ class Project_board extends CI_Controller
         $this->load->model('Notification_model');
         $this->load->model('Email_model');
         $this->load->model('Api_model', 'api');
+        $this->load->model('Tugas_model');
+        $this->load->model('Tasks_model');
     }
 
     public function index()
@@ -322,6 +324,86 @@ class Project_board extends CI_Controller
 
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
+    
+    public function get_data_project()
+    {
+            $user_id = $this->input->post('id_users');
+            $kantor_id = $this->db->select('id_kantor')
+                ->from('users')
+                ->where('id', $user_id)
+                ->get()
+                ->row();
+        
+            $this->db->select('*');
+            $this->db->from('project');
+            $this->db->where('project.id_kantor', $kantor_id->id_kantor);
+            $this->db->order_by('id', 'DESC');
+            $data = $this->db->get()->result();
+        
+            // Mengubah response menjadi format JSON
+            $response = array();
+            foreach ($data as $row) {
+                $response[] = array(
+                    'id' => $row->id,
+                    'project' => $row->project,
+                    'description' => $row->description,
+                    'file' => $row->file,
+                    'status' => $row->status,
+                    'id_kantor' => $row->id_kantor
+                );
+            }
+        
+            $this->output->set_content_type('application/json')->set_output(json_encode($response));
+    }
+    
+    public function create_action()
+    {
+        $id_user = $this->input->post('id_users');
+        $id_project = $this->input->post('project_id');
+        $title = $this->input->post('task_title');
+        $task = $this->input->post('task_description');
+        
+        $pegawai = $this->db->select('*')
+                    ->from('pegawai')
+                    ->where('id_users',$id_user)
+                    ->get()
+                    ->row();
+                    
+        $data = array (
+            'id_pegawai'    => $pegawai->id,
+            'tgl'           => date('d-m-Y'),
+            'judul'         => $title,
+            'tugas'         => $task,
+            'file_tugas'    => NULL,
+            'tgl_selesai'   => NULL,
+            'selesai'       => 0,
+            'id_project'    => $id_project,
+            'priority'      => $priority,
+            
+            );
+         $this->Tugas_model->insert($data);
+         $id_tugas = $this->db->insert_id();
+         
+                         // insert tasks
+                $id_task = $this->Tasks_model->insert([
+                    'id_project'    => $id_project,
+                    'date_created'  => date('Y-m-d H:i:s'),
+                    'task'          => $title,
+                    'description'   => $task,
+                    'id_status'     => 1,
+                ]);
+                
+         $this->db->insert('tasks_detail', [
+                    'id_task' => $id_task,
+                    'id_user' => $id_user,
+                    'date_created' => date('Y-m-d H:i:s'),
+                    'message' => 'Task status created',
+                    'task_status' => 2,
+                    'type' => '2',
+                ]);
+        
+    }
+    
 }
 
 /* End of file Project_board.php */
