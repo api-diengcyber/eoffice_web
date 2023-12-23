@@ -352,7 +352,7 @@ class Tugas extends CI_Controller
                     'id_user' => $row_pegawai->id_users,
                     'date_created' => date('Y-m-d H:i:s'),
                     'message' => 'Task status created',
-                    'task_status' => 2,
+                    'task_status' => 1,
                     'type' => '2',
                 ]);
 
