@@ -15,33 +15,29 @@ class Kantor_model extends CI_Model
     {
         parent::__construct();
     }
-   
-
-
-
 
     // datatables
     function json()
     {
-
         $user_id = $this->session->userdata('user_id');
         $kantor_id = $this->db->select('id_kantor')
-                ->from('users')
-                ->where('id',$user_id)
-                ->get()
-                ->row();
-
-        $this->datatables->select('k.*,l.lat,l.long');
-        $this->datatables->from('kantor AS k');
-        $this->datatables->join('kantor_lokasi AS l','l.id_kantor=k.id');
-        $this->datatables->where('k.id',$kantor_id->id_kantor);
-        //add this line for join
-        //$this->datatables->join('table2', 'kantor.field = table2.field');
-        $this->datatables->add_column('action', anchor(site_url('admin/kantor/update/$1'),
-        '<button class="btn btn-xs btn-info">
+            ->from('users')
+            ->where('id', $user_id)
+            ->get()
+            ->row();
+        $this->datatables->select(' k.id,k.nama_kantor,k.kode,k.alamat_kantor,k.no_telp_kantor,k.bidang_bisnis,k.jumlah_karyawan,k.nama_pemohon,k.no_telp_pemohon,k.jabatan_pemohon,k.email,k.kode_whatsapp,k.created_date,l.long,COUNT(u.id) AS total_users');
+        $this->datatables->from('kantor k');
+        $this->datatables->join('kantor_lokasi l', 'l.id_kantor=k.id', 'left');
+        $this->datatables->join('users u', 'u.id_kantor = k.id', 'left');
+        $this->datatables->where('k.id', $kantor_id->id_kantor);
+        $this->datatables->group_by('k.id');
+        $this->datatables->add_column('action', anchor(
+            site_url('admin/kantor/update/$1'),
+            '<button class="btn btn-xs btn-info">
         <i class="ace-icon fa fa-pencil bigger-120"></i>
-        </button>')."&nbsp;&nbsp;",$kantor_id->id_kantor);
-            return $this->datatables->generate();
+        </button>'
+        ) . "&nbsp;&nbsp;", $kantor_id->id_kantor);
+        return $this->datatables->generate();
     }
 
     // get all
@@ -58,8 +54,8 @@ class Kantor_model extends CI_Model
 
         $this->db->select('k.*,l.lat,l.long');
         $this->db->from('kantor as k');
-        $this->db->join('kantor_lokasi as l','l.id_kantor=k.id');
-        $this->db->where('k.id',$id);
+        $this->db->join('kantor_lokasi as l', 'l.id_kantor=k.id');
+        $this->db->where('k.id', $id);
         // $this->db->where($this->id, $id);
         return $this->db->get()->row();
     }

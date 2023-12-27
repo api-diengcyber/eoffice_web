@@ -18,8 +18,9 @@ class Registrasi_kantor_model extends CI_Model
     // datatables
     function json()
     {
-        $this->datatables->select('id,perusahaan,alamat,no_telp_perusahaan,bidang_bisnis,jml_karyawan,nama_pemohon,no_telp_pemohon,jabatan_pemohon,email,created_date,status');
-        $this->datatables->from('registrasi_kantor');
+        $this->datatables->select('rk.id, rk.perusahaan, rk.alamat, rk.no_telp_perusahaan, rk.bidang_bisnis, rk.jml_karyawan, rk.nama_pemohon, rk.no_telp_pemohon, rk.jabatan_pemohon, rk.email, rk.created_date, rk.status, IF(k.id IS NULL, 0, 1) AS is_kantor_created');
+        $this->datatables->from('registrasi_kantor rk');
+        $this->datatables->join('kantor k', 'rk.perusahaan = k.nama_kantor', 'left');
         $this->datatables->add_column('action', anchor(site_url('registrasi_kantor/update/$1'), 'Update') . " | " . anchor(site_url('registrasi_kantor/delete/$1'), 'Delete', 'onclick="javasciprt: return confirm(\'Are You Sure ?\')"'), 'id');
         return $this->datatables->generate();
     }

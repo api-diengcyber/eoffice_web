@@ -175,7 +175,10 @@
       </div>
     </li>
 
-    <li class="nav-item  <?php if (!empty($active_utilities) && $active_utilities == 'active_kantor') {
+    <li class="nav-item  <?php if (!empty($active_utilities) && $active_utilities == 'active_register_kantor') {
+                            echo 'active';
+                          } ?>
+                          <?php if (!empty($active_utilities) && $active_utilities == 'active_kantor') {
                             echo 'active';
                           } ?>
                               <?php if (!empty($active_utilities) && $active_utilities == 'active_pegawai') {
@@ -198,7 +201,10 @@
         <span class="menu-title">Master</span>
         <i class="menu-arrow"></i>
       </a>
-      <div class="collapse <?php if (!empty($active_utilities) && $active_utilities == 'active_kantor') {
+      <div class="collapse <?php if (!empty($active_utilities) && $active_utilities == 'active_register_kantor') {
+                              echo 'show';
+                            } ?>
+                            <?php if (!empty($active_utilities) && $active_utilities == 'active_kantor') {
                               echo 'show';
                             } ?>
                               <?php if (!empty($active_utilities) && $active_utilities == 'active_pegawai') {
@@ -219,6 +225,24 @@
                               
                               " id="auth">
         <ul class="nav flex-column sub-menu">
+          <?php if ($users_id == "4") { ?>
+            <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'active_register_kantor') {
+                                    echo 'active';
+                                  } ?>">
+              <a class="nav-link" href="<?php echo base_url() ?>admin/register_kantor">
+                <i class="menu-icon mdi mdi-home-modern"></i>
+                Register Kantor
+              </a>
+            </li>
+          <?php } ?>
+          <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'active_kantor') {
+                                echo 'active';
+                              } ?>">
+            <a class="nav-link" href="<?php echo base_url() ?>admin/kantor">
+              <i class="menu-icon mdi mdi-home-modern"></i>
+              Kantor
+            </a>
+          </li>
           <li class="nav-item <?php if (!empty($active_utilities) && $active_utilities == 'active_pegawai') {
                                 echo 'active';
                               } ?>">

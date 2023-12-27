@@ -8,7 +8,7 @@
         </div> -->
     </div>
     <div class="col-md-4 text-right">
-        <!-- <?php echo anchor(site_url('admin/kantor/create'), 'Create', 'class="btn btn-primary"'); ?> -->
+        <?php echo anchor(site_url('admin/kantor/create'), 'Create', 'class="btn btn-success"'); ?>
     </div>
 </div>
 <div class="card table-responsive">
@@ -16,11 +16,13 @@
         <table class="table table-bordered table-striped" id="mytable">
             <thead>
                 <tr>
-                    <th width="80px">No</th>
+                    <th width="5px">No</th>
+                    <th>Kode</th>
                     <th>Kantor</th>
+                    <th>Kode Whatsapp</th>
+                    <th>Koordinat</th>
+                    <th>Total User</th>
                     <th>Created date</th>
-                    <th>Lat</th>
-                    <th>Long</th>
                     <th width="200px">Action</th>
                 </tr>
             </thead>
@@ -65,16 +67,23 @@
                     "data": "id",
                     "orderable": false
                 }, {
+                    "data": "kode"
+                }, {
                     "data": "nama_kantor"
-                }, 
+                }, {
+                    "data": "kode_whatsapp"
+                },
+                {
+                    "data": "lat",
+                    render: function(data, z, row) {
+                        return data + '<br>' + row['long'];
+                    }
+                },
+                {
+                    "data": "total_users"
+                },
                 {
                     "data": "created_date"
-                },
-                {
-                    "data": "lat"
-                },
-                {
-                    "data": "long"
                 },
                 {
                     "data": "action",

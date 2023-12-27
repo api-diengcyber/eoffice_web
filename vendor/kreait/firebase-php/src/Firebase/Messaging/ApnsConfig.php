@@ -68,7 +68,6 @@ final class ApnsConfig implements JsonSerializable
         $headers = $data['headers'] ?? [];
         $payload = $data['payload'] ?? [];
         $fcmOptions = $data['fcm_options'] ?? [];
-
         return new self($headers, $payload, $fcmOptions);
     }
 

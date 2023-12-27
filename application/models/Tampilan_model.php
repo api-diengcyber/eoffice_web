@@ -28,7 +28,7 @@ class Tampilan_model extends CI_Model
 				'users_foto_pegawai' => $this->session->userdata('users_foto_pegawai_office'),
 				'users_username' => $this->session->userdata('users_username_office'),
 				'users_level' => $this->session->userdata('users_level_office'),
-				'users_id_kantor' => $this->session->userdata(),
+				'users_id_kantor' => $this->session->userdata('users_id_kantor'),
 			);
 		} else {
 			redirect(site_url('auth/login'));
@@ -70,7 +70,7 @@ class Tampilan_model extends CI_Model
 			// 			redirect(site_url('auth/login'));
 		}
 		$this->load->view($fview . 'element/_header', $data_login);
-		$this->load->view($fview . 'element/_sidebar', $active);
+		$this->load->view($fview . 'element/_sidebar', array_merge($active, $data_login));
 		$this->load->view($fview . $hal, $data);
 		$this->load->view($fview . 'element/_footer');
 	}
